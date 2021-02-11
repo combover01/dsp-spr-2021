@@ -1,8 +1,9 @@
 import numpy as np
 from scipy.io import wavfile
 import scipy.io as sp
+import scipy.signal as spsig
 import matplotlib.pyplot as plt
-from numpy import random
+import time
 
 # x= np.array([1.,2.,3.,4.,5.])
 # h = np.array([99.,99.,99.])
@@ -37,9 +38,42 @@ def myTimeConv(x,h):
 
 
 
-print(myTimeConv(x,h).astype(int))
-
+yy = myTimeConv(x,h)
+plt.plot(yy)
+plt.title("Triangle Convolved with Ones")
+plt.xlabel("tau")
+plt.ylabel("Amplitude")
+plt.savefig('assignment02/results/01-convolution.png')
+plt.show()
 #next to do for future me:
-#In your main script define 'x' as a DC signal of length 200 (constant amplitude of 1) and 'h' as a symmetric triangular signal of length 51 (0 at the first and last sample and 1 in the middle). Add a function call to myTimeConv() in your script to compute 'y_time' as the time-domain convolution of 'x' and 'h' as defined above. Plot the result (label the axes appropriately) and save in the results folder [10]
+#In your main script define 'x' as a DC signal of length 200 (constant amplitude of 1) and 'h' as a symmetric triangular signal of length 51 (0 at the first and last sample and 1 in the middle). 
+# Add a function call to myTimeConv() in your script to compute 'y_time' as the time-domain convolution of 'x' and 'h' as defined above. 
+# Plot the result (label the axes appropriately) and save in the results folder [10]
+
+
+#(m, mabs, stdev, time) = 
+def compareConv(x, h):
+    t1 = time.perf_counter()
+    myOutput = myTimeConv(x,h)
+    t2 = time.perf_counter()
+    spOutput = spsig.convolve(x,h)
+    t3 = time.perf_counter()
+
+    m = np.sum(myOutput-spOutput) / len(myOutput)
+    mabs = np.sum(np.abs(myOutput-spOutput)) / len(myOutput)
+    stdev = np.sqrt((np.sum((np.abs(myOutput-spOutput)**2)))/len(myOutput))
+    times = np.array([t2-t1,t3-t2]) #index 0 is my convolution, index 1 is scipy's convolution
+
+    return m,mabs,stdev,times
+
+
+sr, impulseResponse = wavfile.read('assignment02/impulse-response.wav')
+sr, piano = wavfile.read('assignment02/piano.wav')
+
+m,mabs,stdev,times = compareConv(impulseResponse,piano)
+print(m)
+print(mabs)
+print(stdev)
+print(times)
 
 
