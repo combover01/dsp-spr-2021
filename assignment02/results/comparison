@@ -1,0 +1,5 @@
+Mean: -16696.204243069747
+Mean Absolute Difference: 930769.2442269495 
+Standard Deviation: 1172790.4572088814 
+Time of my function: 2.8814037000000003 
+Time of SciPy convolve: 0.03111269999999955
