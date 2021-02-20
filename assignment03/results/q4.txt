@@ -1,0 +1,2 @@
+The Hann window's amplitudes are around 0.5x the rectangular windowed amplitudes in the Fourier transform of the square wave. 
+The reason they are not exact multiples of each other is from rounding errors. 

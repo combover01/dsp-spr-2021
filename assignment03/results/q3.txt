@@ -1,0 +1,5 @@
+3.4: frequency resolution = sample rate / length of fft = sample rate / length of original signal in samples = 44100 (samples/sec) / 22050 samples = 2 (1/sec) = 2Hz
+(remember these signals are 0.5 secs each, at 44100 samples/sec)
+
+3.5: The zero-padded frequency resolution will be 1/2 the frequency resolution of the unpadded signal.
+sample rate / (2*length of original signal) = 44100 / 44100 = 1 Hz
